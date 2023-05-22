@@ -4,7 +4,7 @@ const express = require('express');
 
 const app = express();
 
-const router = require('./router.js');
+const router = require('./routers/router.js');
 
 const PORT = 3000;
 
