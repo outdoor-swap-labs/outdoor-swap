@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 // const controller = require('./controller');
 
 // TEST SAMPLE ONLY ONE ADDRESS FOR EACH REQUEST
