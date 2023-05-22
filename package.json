@@ -1,0 +1,12 @@
+{
+  "name": "outdoor-swap",
+  "version": "1.0.0",
+  "description": "Welcome to Outdoor Swap! We've made a fullstack app that includes a frontend, backend, and postgres database.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
