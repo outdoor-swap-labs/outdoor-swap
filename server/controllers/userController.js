@@ -13,6 +13,7 @@ userController.signUp = (req, res, next) => {
       return next();
     })
     .catch(err => next(err))
+
 }
 
 //example

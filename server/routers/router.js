@@ -35,6 +35,10 @@ router.get('/location/:location', itemController.getByLocation, (req, res) => {
   res.status(200).json(res.locals.items)
 });
 
+router.patch('/item/:id', itemController.updateItem, (req, res) => {
+  res.status(200).json(res.locals.item)
+})
+
 // insert middleware and return middleware in json
 // router.get('/',
 //   controller.getData,
