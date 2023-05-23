@@ -1,5 +1,5 @@
 const userController = {};
-const db = require('../models/userModel');
+const db = require('../models/databaseModel');
 
 //post request to create a user
 // userController.signUp = (req, res, next) => {
