@@ -1,15 +1,30 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState, useEffect } from 'react';
+import MainNavBar from './components/MainNavBar';
 import './assets/styles.scss';
 
-class App extends Component {
-  render() {
-    return (
-      <div id="app">
-        Hello World!
+const id = 1;
+
+function App(props) {
+  const [userName, setUserName] = useState('');
+
+  useEffect(async () => {
+    try {
+      const response = await fetch(`/user/${id}`);
+      const data = await response.json();
+      setUserName(data.userName);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  return (
+    <>
+      <MainNavBar userName={userName} />
+      <div>
+        <h1>Welcome to the App component!</h1>
       </div>
-    ) 
-  }
+    </>
+  );
 }
 
 export default App;

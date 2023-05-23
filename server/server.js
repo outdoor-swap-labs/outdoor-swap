@@ -11,12 +11,14 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.resolve(__dirname, './client')));
+app.use(express.static(path.resolve(__dirname, '../dist')));
 
-app.use('/api',router);
+app.use('/api', router);
 
 //catch all
-app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
+app.use((req, res) =>
+  res.status(404).send("This is not the page you're looking for...")
+);
 
 // default error
 app.use((err, req, res, next) => {
