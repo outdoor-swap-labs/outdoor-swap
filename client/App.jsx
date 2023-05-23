@@ -1,15 +1,12 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import './assets/styles.scss';
 
-class App extends Component {
-  render() {
-    return (
-      <div id="app">
-        Hello World!
-      </div>
-    ) 
-  }
+function App(props) {
+  return (
+    <div>
+      <h1>Welcome to the App component!</h1>
+    </div>
+  );
 }
 
 export default App;
