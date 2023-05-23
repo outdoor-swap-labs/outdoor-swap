@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
-function MainNavBar({ userName }) {
+function MainNavBar() {
+  const [userName, setUserName] = useState('');
+  const id = 1;
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const response = await fetch(`/api/test/${id}`);
+        const data = await response.json();
+        console.log(data);
+        setUserName(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    let ignore = false;
+    getUser();
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   return (
-    <nav>
+    <nav className="navStyle">
       <NavLink to="/">Home</NavLink>
       <NavLink to="/rented_items">Rented Items</NavLink>
-      Welcome {userName}!!
+      <NavLink to="">{`Hello ${userName}!`}</NavLink>
+      <span>This needs to be red!!!!!!</span>
     </nav>
   );
 }

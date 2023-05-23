@@ -3,34 +3,14 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import MainNavBar from './components/MainNavBar';
 import RentedItems from './components/RentedItems';
-import './assets/styles.scss';
-
-const id = 1;
+import './assets/scss/reset.scss';
+import './assets/scss/NavBar.scss';
+// import './assets/scss/test.scss';
 
 function App(props) {
-  const [userName, setUserName] = useState('');
-
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const response = await fetch(`/api/test/${id}`);
-        const data = await response.json();
-        console.log(data);
-        setUserName(data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    let ignore = false;
-    getUser();
-    return () => {
-      ignore = true;
-    };
-  }, []);
-
   return (
     <>
-      <MainNavBar userName={userName} />
+      <MainNavBar className="nav" />
       <Routes>
         <Route path="/rented_items" element={<RentedItems />} />
         <Route path="/" element={<Home />} />
