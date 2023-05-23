@@ -1,16 +1,28 @@
 const express = require('express');
+const path = require ('path');
 const router = express.Router();
 const userController = require('../controllers/userController');
+// const fs = require('fs');
 // const controller = require('./controller');
 
 // TEST SAMPLE ONLY ONE ADDRESS FOR EACH REQUEST
 // serve index html
-router.get('/', (req, res) => {
-    return res
-      .status(200)
-      .send('sendingggg') //working
-      //.sendFile(path.join(__dirname, '../client/index.html'));
-  });
+
+//signin
+router.post('/', userController.signIn, (req, res) => {
+  res.status(200).send({message: `Successful login`})
+  // res.status(200).sendFile(path.join(__dirname, '../client/index.html'))
+});
+
+
+// user create name
+// router.post('/', userController.createUser, (req, res) => {
+//   return res.status(200).json(res.locals.newUser)
+// })
+
+
+
+
   // user name TEST
 router.get('/test/:id', userController.test, (req, res) => {
   res.status(200).json(res.locals.username)

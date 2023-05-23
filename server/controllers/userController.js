@@ -2,11 +2,41 @@ const userController = {};
 const db = require('../models/databaseModel');
 
 //post request to create a user
-// userController.signUp = (req, res, next) => {
-//   const { username, password } = req.body;
-//   const createUserQuery = 
+userController.signUp = (req, res, next) => {
+  const { username, password } = req.body;
+  const createUserQuery = 
 
-// }
+}
+
+//post request to signin
+userController.signIn = (req, res, next) => {
+  const { username, password } = req.body;
+  console.log(username, password)
+  const usernameQuery = `SELECT username, password FROM "public"."user" WHERE username= $1`;
+  const usernameVar = [username];
+  db.query(usernameQuery, usernameVar)
+    .then(data => {
+      if (data.rows.length === 0) {
+        throw new Error('No user found with that ID');
+      }
+      res.locals.password = data.rows[0].password;
+      // console.log(res.locals.password)
+      if (req.body.password != res.locals.password){
+        throw new Error('Password does not match');
+        // return next(createErr({message: `Password does not mat`}))
+      }
+      return next();
+    })
+    // in postman, error coming up as catchall error but in console shows up as "password does not match"
+    .catch(err => next({
+      log: `Error with userController.signIn, ${err}`,
+      message: {error: 'userController.signIn'}
+    }));
+}
+
+
+
+
 
 // test controller
 userController.test = (req, res, next) => {
