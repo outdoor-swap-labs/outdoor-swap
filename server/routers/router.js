@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/userController');
 // const controller = require('./controller');
 
 // TEST SAMPLE ONLY ONE ADDRESS FOR EACH REQUEST
@@ -10,6 +11,12 @@ router.get('/', (req, res) => {
       .send('sendingggg') //working
       //.sendFile(path.join(__dirname, '../client/index.html'));
   });
+  // user name TEST
+router.get('/test/:id', userController.test, (req, res) => {
+  res.status(200).json(res.locals.username)
+});
+
+
 
 // insert middleware and return middleware in json
 // router.get('/',
