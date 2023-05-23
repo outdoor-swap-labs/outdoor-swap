@@ -2,6 +2,7 @@ const express = require('express');
 const path = require ('path');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const itemController = require('../controllers/itemController')
 // const fs = require('fs');
 // const controller = require('./controller');
 
@@ -16,19 +17,23 @@ router.post('/', userController.signIn, (req, res) => {
 
 
 // user create name
-// router.post('/', userController.createUser, (req, res) => {
-//   return res.status(200).json(res.locals.newUser)
-// })
-
-
-
+router.post('/signUp', userController.signUp, (req, res) => {
+  return res.status(200).json(res.locals.newUser)
+})
 
   // user name TEST
 router.get('/test/:id', userController.test, (req, res) => {
   res.status(200).json(res.locals.username)
 });
 
+// item test get by category
+router.get('/category/:category', itemController.getByCategory, (req, res) => {
+  res.status(200).json(res.locals.items)
+});
 
+router.get('/location/:location', itemController.getByLocation, (req, res) => {
+  res.status(200).json(res.locals.items)
+});
 
 // insert middleware and return middleware in json
 // router.get('/',

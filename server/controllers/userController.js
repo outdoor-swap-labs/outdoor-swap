@@ -4,9 +4,38 @@ const db = require('../models/databaseModel');
 //post request to create a user
 userController.signUp = (req, res, next) => {
   const { username, password } = req.body;
-  const createUserQuery = 
+  const createUserQuery = `INSERT INTO "public"."user" (username, password) VALUES ($1, $2)`;
+  const addedVar = [username, password];
 
+  db.query(createUserQuery, addedVar)
+    .then(data => {
+      res.locals.newUser = data.rows[0];
+      return next();
+    })
+    .catch(err => next(err))
 }
+
+//example
+// entryController.postEntry = (req, res, next) => {
+//   const { content, created_at } = req.body;
+//   const addEntryQuery =  'INSERT INTO Entry (content, created_at) VALUES ($1, $2)';
+//   const addedVar = [content, created_at];
+//   db.query (addEntryQuery, addedVar)
+//     .then(data => {
+//       res.locals.entry = data.rows[0];
+//       return next();
+//     })
+//     .catch(err => next({
+//       log: `Error with entryControlller.postEntry, ${err}`,
+//       message: {error:'entryController.postEntry'}
+//     }));
+// };
+
+
+
+
+
+
 
 //post request to signin
 userController.signIn = (req, res, next) => {
