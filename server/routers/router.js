@@ -25,13 +25,18 @@ router.post('/signUp', userController.signUp, (req, res) => {
   return res.status(200).json(res.locals.newUser)
 })
 
-// user name TEST
-router.get('/test/:id', userController.test, (req, res) => {
-  res.status(200).json(res.locals.username)
-});
+// // user name TEST
+// router.get('/test/:id', userController.test, (req, res) => {
+//   res.status(200).json(res.locals.username)
+// });
   
   // item test get by category
 router.get('/category/:category', itemController.getByCategory, (req, res) => {
+  res.status(200).json(res.locals.items)
+});
+
+ // item test get by ID
+ router.get('/item/:id', itemController.getItemsByID, (req, res) => {
   res.status(200).json(res.locals.items)
 });
 

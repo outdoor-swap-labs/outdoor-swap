@@ -38,6 +38,26 @@ itemController.getByCategory = (req, res, next) => {
       }));
 };
 
+// filter by ID
+itemController.getItemsByID = (req, res, next) => {
+  const id = req.params.id;
+  const idItemsQuery = 'SELECT * FROM "public"."item" WHERE id = $1';
+  const idItemsVar = [id]
+  db.query(idItemsQuery, idItemsVar)
+    .then(data => {
+      console.log(data)
+      if (data.rows.length === 0) {
+        throw new Error('No available item found with that ID');
+      }
+      res.locals.items = data.rows;
+      return next();
+    })
+    .catch(err => next({
+      log: `Error with itemController.getItemsByID, ${err}`,
+      message: {error: 'itemController.getItemsByID'}
+    }));
+};
+
 // filter by zipcode
 itemController.getByLocation = (req, res, next) => {
     const location= req.params.location;
