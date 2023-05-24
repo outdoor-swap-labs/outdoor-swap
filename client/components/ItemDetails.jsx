@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import ReservationPopup from './ReservationPopup';
 
 function ItemDetails(props) {
   const params = useParams();
@@ -38,6 +39,8 @@ function ItemDetails(props) {
     size,
   */
 
+  const [buttonPopup, setButtonPopup] = useState(false);
+
   return (
     <>
       <div>These are the details of your item</div>
@@ -53,7 +56,8 @@ function ItemDetails(props) {
         <li>{details.price}</li>
       </ul>
       <button onClick={() => navigate(-1)}>Go back </button>
-      <button onClick={() => reserve()}>Make Reservation</button>
+      <button onClick={() => setButtonPopup(true)}>Make Reservation</button>
+      <ReservationPopup trigger={buttonPopup} setTrigger={setButtonPopup} />
     </>
   );
 }
