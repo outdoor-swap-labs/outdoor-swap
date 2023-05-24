@@ -3,6 +3,7 @@ const path = require ('path');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const itemController = require('../controllers/itemController')
+const reservationController = require('../controllers/reservationController')
 // const fs = require('fs');
 // const controller = require('./controller');
 
@@ -40,7 +41,13 @@ router.get('/location/:location', itemController.getByLocation, (req, res) => {
 
 router.patch('/item/:id', itemController.updateItem, (req, res) => {
   res.status(200).json(res.locals.item)
-})
+});
+
+// creates reservation 
+router.post('/item/:id', reservationController.createReservation, (req, res) => {
+  res.status(200).json(res.locals.newReservation)
+});
+
 
 // insert middleware and return middleware in json
 // router.get('/',
