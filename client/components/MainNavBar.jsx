@@ -27,7 +27,7 @@ function MainNavBar() {
     <nav className="navStyle">
       <NavLink to="/">Home</NavLink>
       <NavLink to="/rented_items">Rented Items</NavLink>
-      <NavLink to="">{`Hello ${userName}!`}</NavLink>
+      <NavLink to="">{`Hello Kelvin (Batman)!`}</NavLink>
     </nav>
   );
 }

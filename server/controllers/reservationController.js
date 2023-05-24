@@ -28,22 +28,21 @@ reservationController.createReservation = (req, res, next) => {
 reservationController.getReservationsByUser = (req, res, next) => {
     const { user_id } = req.params
     const getReservationsByUserQuery = `
-    SELECT * FROM "public"."reservation" as a
-    JOIN public.item as b
-    ON a.item_ID = b.id
-    WHERE user_ID = $1
-  `;
-  const userResVar = [user_id];
-
-  db.query(getReservationsByUserQuery, userResVar)
-    .then((data) => {
-      res.locals.userReservations = data.rows;
-      return next();
-    })
-    .catch(err => next({
-      log: `Error with reservationController.createReservation, ${err}`,
-      message: {error: 'reservationController.createReservation'}
-    }));
+      SELECT * FROM "public"."reservation" as a
+      JOIN public.item as b
+      ON a.item_id = b.id
+      WHERE user_id = $1
+    `;
+    const userResVar = [user_id];
+    db.query(getReservationsByUserQuery, userResVar)
+      .then((data) => {
+        res.locals.userReservations = data.rows;
+        return next();
+      })
+      .catch(err => next({
+        log: `Error with reservationController.getReservationsByUser, ${err}`,
+        message: {error: 'reservationController.getReservationsByUser'}
+      }));
 };
 
 // reservationController.updateReservation = (req, res, next) => {
