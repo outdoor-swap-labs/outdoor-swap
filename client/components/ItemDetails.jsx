@@ -59,7 +59,11 @@ function ItemDetails(props) {
         </ul>
         <button onClick={() => navigate(-1)}>Go back </button>
         <button onClick={() => setButtonPopup(true)}>Make Reservation</button>
-        <ReservationPopup trigger={buttonPopup} setTrigger={setButtonPopup} />
+        <ReservationPopup
+          itemId={id}
+          trigger={buttonPopup}
+          setTrigger={setButtonPopup}
+        />
       </div>
     </>
   );
