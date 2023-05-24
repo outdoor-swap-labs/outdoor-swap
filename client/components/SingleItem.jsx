@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/scss/ItemCard.scss';
 
 function SingleItem({ item }) {
   const {

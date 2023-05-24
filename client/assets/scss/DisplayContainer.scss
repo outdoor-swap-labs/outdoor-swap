@@ -1,0 +1,25 @@
+.items-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.item-card {
+  flex: 1;
+  min-width: 20%;
+  height: auto;
+  margin: 5px;
+  display: flex;
+  border: 2px solid black;
+  border-radius: 7px;
+  justify-content: center;
+  li {
+    list-style: none;
+  }
+}
+
+.item-img img {
+  margin: 3px;
+  border-radius: 4px;
+  max-width: 50%;
+  height: auto;
+}
