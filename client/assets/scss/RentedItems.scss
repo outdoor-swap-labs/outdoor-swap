@@ -182,3 +182,14 @@
 //     margin: 4vw 6vw 0 0.5vw;
 //   }
 // }
+
+@media (min-width:1500px) { 
+  body{
+    font-size: 1vw;
+  }
+  ul {
+    grid-template-columns: repeat(6,1fr);
+    grid-column-gap: 1vw;
+    margin: 4vw 6vw 0 0.5vw;
+  }
+}

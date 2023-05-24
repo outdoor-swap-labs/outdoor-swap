@@ -1,6 +1,6 @@
 // function that fetches the item id of that user reservation
 import React, { useState, useEffect } from 'react';
-import '../assets/scss/RentedItems.scss';
+import '../assets/scss/DisplayContainer.scss';
 
 function RentedItems() {
   const [items, setItems] = useState([]);
@@ -9,45 +9,45 @@ function RentedItems() {
     // Replace with actual user id
     const userId = 6;
     fetch(`/api/user/${userId}/reservations`)
-      .then(response => response.json())
-      .then(data => {
-        console.log('data', data)
-        setItems(data)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data', data);
+        setItems(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
 
   return (
-    <div>
-      <h1>These are your Rented Items!</h1>
-      <div className="space">
-      </div>
-      {items.map((item, index) => (
-        <ul>
-          <li>
-        <div key={index} className="details">
-          <h2>{item.description}</h2>
-          <p>Price: {item.price}</p>
-          {/* <p>Category: {item.category}</p>
-          <p>Size: {item.size}</p>
-          <p>Location: {item.location}</p>
-          <p>Reserved Date: {item.date_reserved}</p>
-          <p>Return Date: {item.date_returned}</p> */}
-          <div class="product">
-          <img src={item.photo} alt={item.description} />
+    <>
+      {/* <h1>These are your Rented Items!</h1> */}
+      <div className="items-container">
+        {items.map((item, index) => (
+          <div key={index} className="item-card item-img">
+            <ul>
+              <li>
+                <img src={item.photo} alt={item.description} />
+              </li>
+              <li>{item.description}</li>
+              <li>Price: {item.price}</li>
+              <li>Category: {item.category}</li>
+              <li>Size: {item.size}</li>
+              <li>Location: {item.location}</li>
+              <li>Reserved Date: {item.date_reserved}</li>
+              <li>Return Date: {item.date_returned}</li>
+
+              {/* <p>Available: {item.available ? 'Yes' : 'No'}</p> */}
+            </ul>
           </div>
-          {/* <p>Available: {item.available ? 'Yes' : 'No'}</p> */}
-        </div>
-        </li>
-        </ul>
-      ))}
-    </div>
-);
+        ))}
+      </div>
+    </>
+  );
 }
 
-{/* <ul>
+{
+  /* <ul>
   <li>
     <div class="details">
       <h2>Team Rainbow Unicorn</h2>
@@ -58,6 +58,7 @@ function RentedItems() {
     </div>
   </li>
   <li>
-  <ul> */}
+  <ul> */
+}
 
 export default RentedItems;

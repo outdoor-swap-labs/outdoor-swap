@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import ReservationPopup from './ReservationPopup';
+import '../assets/scss/FocusedItem.scss';
 
 function ItemDetails(props) {
   const params = useParams();
@@ -44,24 +45,26 @@ function ItemDetails(props) {
   return (
     <>
       <div>These are the details of your item</div>
-      <ul>
-        <li>
-          <img className="focused-item-img" src={details.photo} />
-        </li>
-        <li>{details.category}</li>
-        <li>{details.location}</li>
-        <li>{details.size}</li>
-        <li>{details.description}</li>
-        <li>{details.number_accomodated}</li>
-        <li>{details.price}</li>
-      </ul>
-      <button onClick={() => navigate(-1)}>Go back </button>
-      <button onClick={() => setButtonPopup(true)}>Make Reservation</button>
-      <ReservationPopup
-        itemId={id}
-        trigger={buttonPopup}
-        setTrigger={setButtonPopup}
-      />
+      <div className="focused-item">
+        <ul>
+          <li>
+            <img src={details.photo} />
+          </li>
+          <li>Category: {details.category}</li>
+          <li>Location: {details.location}</li>
+          <li>Size: {details.size}</li>
+          <li>Description: {details.description}</li>
+          <li>Number Accomodated: {details.number_accomodated}</li>
+          <li>Price: {details.price}</li>
+        </ul>
+        <button onClick={() => navigate(-1)}>Go back </button>
+        <button onClick={() => setButtonPopup(true)}>Make Reservation</button>
+        <ReservationPopup
+          itemId={id}
+          trigger={buttonPopup}
+          setTrigger={setButtonPopup}
+        />
+      </div>
     </>
   );
 }
