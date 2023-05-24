@@ -2,46 +2,53 @@ const db = require ('../models/databaseModel');
 const reservationController = {};
 
 reservationController.createReservation = (req, res, next) => {
-    const { item_ID, user_ID, date_reserved, date_returned } = req.body;
+    const { item_id: item_id, user_id: user_id } = req.params;
+    const { date_reserved, date_returned } = req.body;
+    //const { date_reserved, date_returned } = req.body;
+    // const { item_id, user_id, date_reserved, date_returned } = req.body;
+    // example of using req.params
+    // const { item_id: item_ID, user_id: user_ID, date_reserved, date_returned } = req.params;
     const createReservationQuery = `
-      INSERT INTO public.reservation (item_ID, user_ID, date_reserved, date_returned)
+      INSERT INTO "public"."reservation" (item_id, user_id, date_reserved, date_returned)
       VALUES ($1, $2, $3, $4)
       RETURNING *
     `;
-    const values = [item_ID, user_ID, date_reserved, date_returned];
-  
-    db.one(createReservationQuery, values)
-      .then((reservation) => {
-        res.locals.newReservation = reservation; // Store the reservation in res.locals.newReservation
-        next();
+    const values = [item_id, user_id, date_reserved, date_returned];
+    db.query(createReservationQuery, values)
+      .then((data) => {
+        res.locals.newReservation = data.rows; // Store the reservation in res.locals.newReservation
+        return next();
       })
-      .catch((error) => {
-        res.status(500).json({ error: 'An error occurred while creating the reservation.' });
-      });
+      .catch(err => next({
+        log: `Error with reservationController.createReservation, ${err}`,
+        message: {error: 'reservationController.createReservation'}
+      }));
 };
-  
-reservationController.getReservationsByUser (req, res, next) => {
-    const { user_ID } = req.body
+
+reservationController.getReservationsByUser = (req, res, next) => {
+    const { user_id } = req.params
     const getReservationsByUserQuery = `
-    SELECT * FROM public.reservation as a
+    SELECT * FROM "public"."reservation" as a
     JOIN public.item as b
     ON a.item_ID = b.id
     WHERE user_ID = $1
   `;
-  const userResVar = [user_ID];
+  const userResVar = [user_id];
 
   db.query(getReservationsByUserQuery, userResVar)
-    .then((result) => {
-      res.locals.userReservations = result.rows;
+    .then((data) => {
+      res.locals.userReservations = data.rows;
+      return next();
     })
-    .catch((error) => {
-      res.status(500).json({ error: 'An error occurred while fetching reservations.' });
-    });
+    .catch(err => next({
+      log: `Error with reservationController.createReservation, ${err}`,
+      message: {error: 'reservationController.createReservation'}
+    }));
 };
 
-reservationController.updateReservation = (req, res, next) => {
-// update data returned
-}
+// reservationController.updateReservation = (req, res, next) => {
+// // update data returned
+// }
 
 
 
