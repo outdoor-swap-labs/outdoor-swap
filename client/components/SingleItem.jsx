@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../assets/scss/ItemCard.scss';
 
 function SingleItem({ item }) {
   const {
@@ -19,8 +20,8 @@ function SingleItem({ item }) {
   return (
     <div className="item-card">
       <ul>
-        <li>
-          <img className="item-img" src={photo} />
+        <li className="item-img">
+          <img src={photo} />
         </li>
         <li>Item: {description}</li>
         <li>Price: {price}</li>
