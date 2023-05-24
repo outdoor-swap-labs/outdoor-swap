@@ -3,11 +3,16 @@ const path = require ('path');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const itemController = require('../controllers/itemController')
+const reservationController = require('../controllers/reservationController')
 // const fs = require('fs');
 // const controller = require('./controller');
 
 // TEST SAMPLE ONLY ONE ADDRESS FOR EACH REQUEST
 // serve index html
+
+router.get('/', itemController.getAllItems, (req, res) => {
+  res.status(200).json(res.locals.items)
+});
 
 //signin
 router.post('/', userController.signIn, (req, res) => {
@@ -15,18 +20,17 @@ router.post('/', userController.signIn, (req, res) => {
   // res.status(200).sendFile(path.join(__dirname, '../client/index.html'))
 });
 
-
 // user create name
 router.post('/signUp', userController.signUp, (req, res) => {
   return res.status(200).json(res.locals.newUser)
 })
 
-  // user name TEST
+// user name TEST
 router.get('/test/:id', userController.test, (req, res) => {
   res.status(200).json(res.locals.username)
 });
-
-// item test get by category
+  
+  // item test get by category
 router.get('/category/:category', itemController.getByCategory, (req, res) => {
   res.status(200).json(res.locals.items)
 });
@@ -37,7 +41,13 @@ router.get('/location/:location', itemController.getByLocation, (req, res) => {
 
 router.patch('/item/:id', itemController.updateItem, (req, res) => {
   res.status(200).json(res.locals.item)
-})
+});
+
+// creates reservation 
+router.post('/item/:id', reservationController.createReservation, (req, res) => {
+  res.status(200).json(res.locals.newReservation)
+});
+
 
 // insert middleware and return middleware in json
 // router.get('/',
