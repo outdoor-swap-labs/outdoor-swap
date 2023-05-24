@@ -2,30 +2,53 @@ const db = require ('../models/databaseModel');
 const reservationController = {};
 
 reservationController.createReservation = (req, res, next) => {
-    const { item_ID, user_ID, date_reserved, date_returned } = req.body;
-    const createReservationQuery =  `
-    INSERT INTO "public"."reservation" (item_ID, user_ID, date_reserved, date_returned)
-    VALUES ($1, $2, $3, $4)
-    RETURNING reservation *, item.name AS item_name, user.name AS user_name
-    JOIN item ON reservation.item_ID = item.ID
-    JOIN user ON reservation.user_ID = user.ID`;
-    const addedVar = [item_ID, user_ID, date_reserved, date_returned];
-    db.query(createReservationQuery, addedVar)
-        .then(data => {
-            res.locals.newReservation = data.rows[0];
-            return next();
-            })
-        .catch(err => next(err))
+    const { item_id: item_id, user_id: user_id } = req.params;
+    const { date_reserved, date_returned } = req.body;
+    //const { date_reserved, date_returned } = req.body;
+    // const { item_id, user_id, date_reserved, date_returned } = req.body;
+    // example of using req.params
+    // const { item_id: item_ID, user_id: user_ID, date_reserved, date_returned } = req.params;
+    const createReservationQuery = `
+      INSERT INTO "public"."reservation" (item_id, user_id, date_reserved, date_returned)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *
+    `;
+    const values = [item_id, user_id, date_reserved, date_returned];
+    db.query(createReservationQuery, values)
+      .then((data) => {
+        res.locals.newReservation = data.rows; // Store the reservation in res.locals.newReservation
+        return next();
+      })
+      .catch(err => next({
+        log: `Error with reservationController.createReservation, ${err}`,
+        message: {error: 'reservationController.createReservation'}
+      }));
+};
 
-}
+reservationController.getReservationsByUser = (req, res, next) => {
+    const { user_id } = req.params
+    const getReservationsByUserQuery = `
+    SELECT * FROM "public"."reservation" as a
+    JOIN public.item as b
+    ON a.item_ID = b.id
+    WHERE user_ID = $1
+  `;
+  const userResVar = [user_id];
 
-reservationController.getReservation = (req, res, next) => {
-    
-}
+  db.query(getReservationsByUserQuery, userResVar)
+    .then((data) => {
+      res.locals.userReservations = data.rows;
+      return next();
+    })
+    .catch(err => next({
+      log: `Error with reservationController.createReservation, ${err}`,
+      message: {error: 'reservationController.createReservation'}
+    }));
+};
 
-reservationController.updateReservation = (req, res, next) => {
-    
-}
+// reservationController.updateReservation = (req, res, next) => {
+// // update data returned
+// }
 
 
 

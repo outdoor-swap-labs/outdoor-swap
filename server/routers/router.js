@@ -25,13 +25,18 @@ router.post('/signUp', userController.signUp, (req, res) => {
   return res.status(200).json(res.locals.newUser)
 })
 
-// user name TEST
-router.get('/test/:id', userController.test, (req, res) => {
-  res.status(200).json(res.locals.username)
-});
+// // user name TEST
+// router.get('/test/:id', userController.test, (req, res) => {
+//   res.status(200).json(res.locals.username)
+// });
   
   // item test get by category
 router.get('/category/:category', itemController.getByCategory, (req, res) => {
+  res.status(200).json(res.locals.items)
+});
+
+ // item test get by ID
+ router.get('/item/:id', itemController.getItemsByID, (req, res) => {
   res.status(200).json(res.locals.items)
 });
 
@@ -44,8 +49,13 @@ router.patch('/item/:id', itemController.updateItem, (req, res) => {
 });
 
 // creates reservation 
-router.post('/item/:id', reservationController.createReservation, (req, res) => {
+router.post('/user/:user_id/item/:item_id', reservationController.createReservation, (req, res) => {
   res.status(200).json(res.locals.newReservation)
+});
+
+// shows user's reservations
+router.get('/user/:user_id/reservations', reservationController.getReservationsByUser, (req, res) => {
+  res.status(200).json(res.locals.userReservations)
 });
 
 
