@@ -3,28 +3,44 @@ const reservationController = {};
 
 reservationController.createReservation = (req, res, next) => {
     const { item_ID, user_ID, date_reserved, date_returned } = req.body;
-    const createReservationQuery =  `
-    INSERT INTO "public"."reservation" (item_ID, user_ID, date_reserved, date_returned)
-    VALUES ($1, $2, $3, $4)
-    RETURNING reservation *, item.name AS item_name, user.name AS user_name
-    JOIN item ON reservation.item_ID = item.ID
-    JOIN user ON reservation.user_ID = user.ID`;
-    const addedVar = [item_ID, user_ID, date_reserved, date_returned];
-    db.query(createReservationQuery, addedVar)
-        .then(data => {
-            res.locals.newReservation = data.rows[0];
-            return next();
-            })
-        .catch(err => next(err))
+    const createReservationQuery = `
+      INSERT INTO public.reservation (item_ID, user_ID, date_reserved, date_returned)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *
+    `;
+    const values = [item_ID, user_ID, date_reserved, date_returned];
+  
+    db.one(createReservationQuery, values)
+      .then((reservation) => {
+        res.locals.newReservation = reservation; // Store the reservation in res.locals.newReservation
+        next();
+      })
+      .catch((error) => {
+        res.status(500).json({ error: 'An error occurred while creating the reservation.' });
+      });
+};
+  
+reservationController.getReservationsByUser (req, res, next) => {
+    const { user_ID } = req.body
+    const getReservationsByUserQuery = `
+    SELECT * FROM public.reservation as a
+    JOIN public.item as b
+    ON a.item_ID = b.id
+    WHERE user_ID = $1
+  `;
+  const userResVar = [user_ID];
 
-}
-
-reservationController.getReservation = (req, res, next) => {
-    
-}
+  db.query(getReservationsByUserQuery, userResVar)
+    .then((result) => {
+      res.locals.userReservations = result.rows;
+    })
+    .catch((error) => {
+      res.status(500).json({ error: 'An error occurred while fetching reservations.' });
+    });
+};
 
 reservationController.updateReservation = (req, res, next) => {
-    
+// update data returned
 }
 
 

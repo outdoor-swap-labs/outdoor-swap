@@ -44,8 +44,8 @@ router.patch('/item/:id', itemController.updateItem, (req, res) => {
 });
 
 // creates reservation 
-router.post('/item/:id', reservationController.createReservation, (req, res) => {
-  res.status(200).json(res.locals.newReservation)
+router.post('/user/:user_id/item/:id/', reservationController.createReservation, (req, res) => {
+  res.status(200).json(res.locals.newReservation);
 });
 
 
