@@ -22,7 +22,7 @@ function SingleItem({ item }) {
         <li>
           <img className="item-img" src={photo} />
         </li>
-        <li>Item: {category}</li>
+        <li>Item: {description}</li>
         <li>Price: {price}</li>
         <li>Location: {location}</li>
         <li>Availability: {`${available}`}</li>
