@@ -1,6 +1,23 @@
 const db = require ('../models/databaseModel');
 const itemController = {};
 
+itemController.getAllItems = (req, res, next) => {
+  const allItemsQuery = `SELECT * FROM "public"."item"`
+
+  db.query(allItemsQuery)
+  .then(data => {
+    if (data.rows.length === 0) {
+      throw new Error('No available items found');
+    }
+    res.locals.items = data.rows;
+    return next();
+  })
+  .catch(err => next({
+    log: `Error with itemController.getAllItems, ${err}`,
+    message: {error: 'itemController.getAllItems'}
+  }));
+};
+
 // filter by category
 itemController.getByCategory = (req, res, next) => {
     const category= req.params.category;
