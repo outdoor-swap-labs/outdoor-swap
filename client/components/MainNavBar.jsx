@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 function MainNavBar() {
   const [userName, setUserName] = useState('');
-  const id = 1;
+  const id = 6;
 
   useEffect(() => {
     async function getUser() {
@@ -28,7 +28,6 @@ function MainNavBar() {
       <NavLink to="/">Home</NavLink>
       <NavLink to="/rented_items">Rented Items</NavLink>
       <NavLink to="">{`Hello ${userName}!`}</NavLink>
-      <span>This needs to be red!!!!!!</span>
     </nav>
   );
 }

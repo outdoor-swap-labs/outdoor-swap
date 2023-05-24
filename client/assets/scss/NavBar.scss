@@ -9,5 +9,12 @@
   a {
     font-size: large;
     text-decoration: none;
+    :link {
+      color: brown;
+    }
+    :visited 
+    :active {
+      color: red;
+    }
   }
 }
