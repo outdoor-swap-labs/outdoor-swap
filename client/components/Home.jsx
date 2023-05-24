@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SingleItem from './SingleItem.jsx';
+import '../assets/scss/HomeDisplay.scss';
 
 function Home() {
   const [items, setItems] = useState([]);
