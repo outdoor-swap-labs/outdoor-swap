@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 //const cors = require('cors');
+// const reservationController = require('./controllers/reservationController');
 
 const app = express();
 
@@ -14,6 +15,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../dist')));
 
 app.use('/api', router);
+
+// app.post(
+//   '/item-details/api/reservation',
+//   reservationController.createReservation,
+//   (req, res) => {
+//     res.status(200).json(res.locals.newReservation);
+//   }
+// );
 
 //catch all
 app.use((req, res) =>
