@@ -20,27 +20,29 @@ function RentedItems() {
   }, []);
 
   return (
-    <div>
+    <>
       {/* <h1>These are your Rented Items!</h1> */}
-      {items.map((item, index) => (
-        <div key={index} className="item-card item-img">
-          <ul>
-            <li>
-              <img src={item.photo} alt={item.description} />
-            </li>
-            <li>{item.description}</li>
-            <li>Price: {item.price}</li>
-            <li>Category: {item.category}</li>
-            <li>Size: {item.size}</li>
-            <li>Location: {item.location}</li>
-            <li>Reserved Date: {item.date_reserved}</li>
-            <li>Return Date: {item.date_returned}</li>
+      <div className="items-container">
+        {items.map((item, index) => (
+          <div key={index} className="item-card item-img">
+            <ul>
+              <li>
+                <img src={item.photo} alt={item.description} />
+              </li>
+              <li>{item.description}</li>
+              <li>Price: {item.price}</li>
+              <li>Category: {item.category}</li>
+              <li>Size: {item.size}</li>
+              <li>Location: {item.location}</li>
+              <li>Reserved Date: {item.date_reserved}</li>
+              <li>Return Date: {item.date_returned}</li>
 
-            {/* <p>Available: {item.available ? 'Yes' : 'No'}</p> */}
-          </ul>
-        </div>
-      ))}
-    </div>
+              {/* <p>Available: {item.available ? 'Yes' : 'No'}</p> */}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
