@@ -1,8 +1,11 @@
 .item-card {
   flex: 1;
+  width: 7rem;
+  height: auto;
   display: flex;
 }
 
 .item-img {
-  height: 50%;
+  width: 4rem;
+  height: 4rem;
 }
