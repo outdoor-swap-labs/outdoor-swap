@@ -16,26 +16,6 @@ userController.signUp = (req, res, next) => {
 
 }
 
-//example
-// entryController.postEntry = (req, res, next) => {
-//   const { content, created_at } = req.body;
-//   const addEntryQuery =  'INSERT INTO Entry (content, created_at) VALUES ($1, $2)';
-//   const addedVar = [content, created_at];
-//   db.query (addEntryQuery, addedVar)
-//     .then(data => {
-//       res.locals.entry = data.rows[0];
-//       return next();
-//     })
-//     .catch(err => next({
-//       log: `Error with entryControlller.postEntry, ${err}`,
-//       message: {error:'entryController.postEntry'}
-//     }));
-// };
-
-
-
-
-
 
 
 //post request to signin
@@ -87,18 +67,5 @@ userController.test = (req, res, next) => {
       message: {error: 'userController.test'}
     }));
 };
-
-
-
-// login middleware
-// userController.login = (req, res, next) => {
-//     const { username, password } = req.body;  
-//     if (username === '' && password === '') {
-//       return next();
-//     }
-//     else {
-//       return res.send('unsuccessful login attempt');
-//     }
-//   };
   
   module.exports = userController;
